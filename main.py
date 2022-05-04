@@ -2,7 +2,7 @@ def apply_rules(iptables, target_rules):
     for rule in target_rules:
         index = find_rule(iptables, rule[3])
         if rule[0] == "ADD":
-            iptables = add_rule(iptables, index, rule[1:2])
+            iptables = add_rule(iptables, index, rule[1], rules[2])
     return iptables
 
 
@@ -11,11 +11,11 @@ def find_rule(iptables, target_rule):
     return index
 
 
-def add_rule(iptables, index, apply_rule):
-    if apply_rule[0] == "TCP":
-        rule = "-A INPUT -p tcp -m state --state NEW -m tcp --dport " + apply_rule[1] + " -j ACCEPT"
-    elif apply_rule[0] == "UDP":
-        rule = "-A INPUT -p udp -m state --state NEW -m udp --dport " + apply_rule[1] + " -j ACCEPT"
+def add_rule(iptables, index, protocol, port):
+    if protocol == "TCP":
+        rule = "-A INPUT -p tcp -m state --state NEW -m tcp --dport " + port + " -j ACCEPT"
+    elif protocol == "UDP":
+        rule = "-A INPUT -p udp -m state --state NEW -m udp --dport " + port + " -j ACCEPT"
     iptables.insert(index + 1, rule)
     return iptables
 
