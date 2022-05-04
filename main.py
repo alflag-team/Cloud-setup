@@ -2,7 +2,7 @@ def apply_rules(iptables, target_rules):
     for rule in target_rules:
         index = find_rule(iptables, rule[3])
         if rule[0] == "ADD":
-            iptables = add_rule(iptables, index, rule[1], rules[2])
+            iptables = add_rule(iptables, index, rule[1], rule[2])
     return iptables
 
 
