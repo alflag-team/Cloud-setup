@@ -21,14 +21,9 @@ def add_rule(iptables, index, apply_rule):
 
 
 def load_iptables(path):
-    iptables = []
     with open(path) as f:
-        while True:
-            line = f.read().splitlines()
-            iptables.append(line)
-            if not line:
-                break
-    return iptables
+        iptables = f.read().splitlines()
+    return iptabless
 
 
 def main():
