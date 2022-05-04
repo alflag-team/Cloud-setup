@@ -16,6 +16,8 @@ def find_rule(iptables: list, target_rule: str) -> int:
 
 
 def add_rule(iptables: list, index: int, protocol: str, port: int) -> list:
+    if not is_port_valid(port):
+        return iptables
     port = str(port)
     rule = ""
     if protocol == "TCP":
@@ -26,7 +28,21 @@ def add_rule(iptables: list, index: int, protocol: str, port: int) -> list:
     return iptables
 
 
-def load_iptables(path):
+def is_port_valid(port: int) -> bool:
+    if 1 <= port <= 65535:
+        return True
+    else:
+        return False
+
+
+def is_protocol_valid(protocol: str) -> bool:
+    if protocol == "TCP" or protocol == "UDP":
+        return True
+    else:
+        return False
+
+
+def load_iptables(path: str) -> list:
     with open(path) as f:
         iptables = f.read().splitlines()
     return iptables
