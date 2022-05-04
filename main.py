@@ -23,7 +23,7 @@ def add_rule(iptables, index, apply_rule):
 def load_iptables(path):
     with open(path) as f:
         iptables = f.read().splitlines()
-    return iptabless
+    return iptables
 
 
 def main():
