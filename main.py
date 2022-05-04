@@ -24,7 +24,7 @@ def load_iptables(path):
     iptables = []
     with open(path) as f:
         while True:
-            line = f.readline()
+            line = f.read().splitlines()
             iptables.append(line)
             if not line:
                 break
