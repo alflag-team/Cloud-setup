@@ -1,8 +1,12 @@
 def apply_rules(iptables, target_rules):
-    for rule in target_rules:
-        index = find_rule(iptables, rule[3])
-        if rule[0] == "ADD":
-            iptables = add_rule(iptables, index, rule[1], rule[2])
+    for r in target_rules:
+        category = r[0]
+        protocol = r[1]
+        port = r[2]
+        target_rule = r[3]
+        index = find_rule(iptables, target_rule)
+        if category == "ADD":
+            iptables = add_rule(iptables, index, protocol, port)
     return iptables
 
 
