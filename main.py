@@ -26,6 +26,11 @@ def load_iptables(path):
     return iptables
 
 
+def write_iptables(path, iptables):
+    with open(path, 'w') as f:
+        f.writelines("%s\n" % t for t in iptables)
+
+
 def main():
     path = "/etc/iptables/rules.v4"
     target_rules = [
@@ -36,7 +41,8 @@ def main():
         ["ADD", "UDP", "4789", "-A INPUT -p tcp -m state --state NEW -m tcp --dport 4789 -j ACCEPT"]
     ]
     iptables = load_iptables(path)
-    apply_rules(iptables, target_rules)
+    iptables = apply_rules(iptables, target_rules)
+    write_iptables(path, iptables)
 
 
 if __name__ == '__main__':
