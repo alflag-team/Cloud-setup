@@ -6,8 +6,8 @@ def apply_rules(iptables, target_rules):
     return iptables
 
 
-def find_rule(rules, target_rule):
-    index = rules.index(target_rule)
+def find_rule(iptables, target_rule):
+    index = iptables.index(target_rule)
     return index
 
 
