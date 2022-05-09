@@ -5,7 +5,7 @@ def apply_iptables(iptables: list, target_rules: list) -> list:
         port = r[2]
         target_rule = r[3]
         index = find_rule(iptables, target_rule)
-        if category == "INSERT":
+        if category == "INSERT" and is_new_rule(iptables, target_rule):
             iptables = insert_rule(iptables, index, protocol, port)
     return iptables
 
@@ -28,6 +28,12 @@ def insert_rule(iptables: list, index: int, protocol: str, port: int) -> list:
         iptables.insert(index + 1, rule)
     return iptables
 
+
+def is_new_rule(iptables: list, target_rule: str) -> bool:
+    if target_rule in iptables:
+        return False
+    else:
+        return True
 
 def is_port_valid(port: int) -> bool:
     if 1 <= port <= 65535:
