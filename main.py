@@ -24,7 +24,8 @@ def insert_rule(iptables: list, index: int, protocol: str, port: int) -> list:
         rule = "-A INPUT -p tcp -m state --state NEW -m tcp --dport " + port + " -j ACCEPT"
     elif protocol == "UDP":
         rule = "-A INPUT -p udp -m state --state NEW -m udp --dport " + port + " -j ACCEPT"
-    iptables.insert(index + 1, rule)
+    if rule != "":
+        iptables.insert(index + 1, rule)
     return iptables
 
 
