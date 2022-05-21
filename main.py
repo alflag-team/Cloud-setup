@@ -4,15 +4,19 @@ def apply_iptables(iptables: list, target_rules: list) -> list:
         protocol = r[1]
         port = r[2]
         target_rule = r[3]
+        if find_rule(iptables, target_rule) == False:
+            return iptables
         index = find_rule(iptables, target_rule)
         if category == "INSERT" and is_new_rule(iptables, target_rule):
             iptables = insert_rule(iptables, index, protocol, port)
     return iptables
 
 
-def find_rule(iptables: list, target_rule: str) -> int:
-    index = iptables.index(target_rule)
-    return index
+def find_rule(iptables: list, target_rule: str):
+    if target_rule in iptables:
+        index = iptables.index(target_rule)
+        return index
+    return False
 
 
 def insert_rule(iptables: list, index: int, protocol: str, port: int) -> list:
