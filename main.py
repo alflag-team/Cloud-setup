@@ -67,7 +67,7 @@ def main():
         ["INSERT", "TCP", 7946, "-A INPUT -p tcp -m state --state NEW -m tcp --dport 2377 -j ACCEPT"],
         ["INSERT", "UDP", 7946, "-A INPUT -p tcp -m state --state NEW -m tcp --dport 7946 -j ACCEPT"],
         ["INSERT", "TCP", 4789, "-A INPUT -p udp -m state --state NEW -m udp --dport 7946 -j ACCEPT"],
-        ["INSERT", "UDP", 4789, "-A INPUT -p tcp -m state --state NEW -m tcp --dport 4789 -j ACCEPT"]
+        ["INSERT", "TCP", 7777, "-A INPUT -p tcp -m state --state NEW -m tcp --dport 4789 -j ACCEPT"]
     ]
     iptables = load_file(path)
     iptables = apply_iptables(iptables, target_rules)
